@@ -2,6 +2,8 @@
 
 A lightweight GTK4 task sidebar for Linux. Keeps a sorted task list in a narrow window you dock to the side of your screen. Tasks due today or overdue are highlighted so you can't miss them.
 
+![Task sidebar screenshot](task-sidebar.png)
+
 ![Python](https://img.shields.io/badge/python-3.11+-blue) ![GTK4](https://img.shields.io/badge/GTK-4.0-green) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
 ## Features
