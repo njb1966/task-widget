@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+exec python3 /media/nick/1TB_Storage1/projects/tech/task_sidebar/main.py "$@"

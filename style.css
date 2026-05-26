@@ -1,0 +1,140 @@
+window {
+    background-color: #1e1e2e;
+}
+
+.task-list {
+    background-color: #1e1e2e;
+}
+
+row.task-row {
+    padding: 8px 10px;
+    margin: 3px 6px;
+    border-radius: 6px;
+    background-color: #2a2a3e;
+    border: 1px solid #3a3a5e;
+}
+
+row.task-row:hover {
+    background-color: #333350;
+}
+
+row.overdue {
+    background-color: #5c1a1a;
+    border: 1px solid #e74c3c;
+}
+
+row.overdue:hover {
+    background-color: #6e2020;
+}
+
+row.due-today {
+    background-color: #5a3a00;
+    border: 1px solid #f39c12;
+}
+
+row.due-today:hover {
+    background-color: #6b4600;
+}
+
+row.due-soon {
+    background-color: #3a3a10;
+    border: 1px solid #c8b400;
+}
+
+row.done-row {
+    background-color: #222230;
+    border: 1px solid #2a2a3e;
+    opacity: 0.6;
+}
+
+.task-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: #cdd6f4;
+}
+
+.task-title-done {
+    font-size: 14px;
+    color: #6c7086;
+    text-decoration: line-through;
+}
+
+.overdue .task-title,
+.overdue .task-title-done {
+    color: #ff7070;
+}
+
+.due-today .task-title {
+    color: #ffd080;
+}
+
+.task-meta {
+    font-size: 11px;
+    color: #7f849c;
+    margin-top: 2px;
+}
+
+.overdue .task-meta {
+    color: #ff9090;
+}
+
+.due-today .task-meta {
+    color: #d4a040;
+}
+
+.priority-high {
+    font-size: 10px;
+    font-weight: bold;
+    color: #f38ba8;
+    background-color: #3d1f2a;
+    border-radius: 4px;
+    padding: 1px 5px;
+}
+
+.priority-medium {
+    font-size: 10px;
+    font-weight: bold;
+    color: #fab387;
+    background-color: #3d2a1f;
+    border-radius: 4px;
+    padding: 1px 5px;
+}
+
+.priority-low {
+    font-size: 10px;
+    font-weight: bold;
+    color: #a6e3a1;
+    background-color: #1f3d26;
+    border-radius: 4px;
+    padding: 1px 5px;
+}
+
+.toolbar {
+    background-color: #181825;
+    padding: 8px;
+    border-bottom: 1px solid #313244;
+}
+
+.toolbar-title {
+    font-size: 15px;
+    font-weight: bold;
+    color: #cba6f7;
+}
+
+.add-button {
+    background-color: #cba6f7;
+    color: #1e1e2e;
+    border-radius: 6px;
+    font-weight: bold;
+    padding: 4px 14px;
+}
+
+.add-button:hover {
+    background-color: #d8b4fe;
+}
+
+.count-label {
+    font-size: 11px;
+    color: #6c7086;
+    padding: 4px 8px;
+}
