@@ -89,6 +89,7 @@ class TaskRow(Gtk.ListBoxRow):
         task_type = task.get("task_type", "personal")
         type_lbl = Gtk.Label(label=task_type.capitalize())
         type_lbl.add_css_class("task-type")
+        type_lbl.add_css_class(f"task-type-{task_type}")
         type_lbl.set_valign(Gtk.Align.CENTER)
         meta_box.append(type_lbl)
 

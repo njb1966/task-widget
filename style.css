@@ -111,10 +111,18 @@ row.done-row {
 
 .task-type {
     font-size: 10px;
-    color: #89b4fa;
-    background-color: #1f2f4d;
     border-radius: 4px;
     padding: 1px 5px;
+}
+
+.task-type-personal {
+    color: #89b4fa;
+    background-color: #1f2f4d;
+}
+
+.task-type-project {
+    color: #a6e3a1;
+    background-color: #1f3d26;
 }
 
 .notes-link {
