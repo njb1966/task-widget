@@ -109,6 +109,35 @@ row.done-row {
     padding: 1px 5px;
 }
 
+.task-type {
+    font-size: 10px;
+    color: #89b4fa;
+    background-color: #1f2f4d;
+    border-radius: 4px;
+    padding: 1px 5px;
+}
+
+.notes-link {
+    font-size: 11px;
+    color: #cba6f7;
+    padding: 0 2px;
+}
+
+.notes-link:hover {
+    color: #d8b4fe;
+}
+
+.notes-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: #cdd6f4;
+}
+
+.notes-body {
+    font-size: 12px;
+    color: #bac2de;
+}
+
 .toolbar {
     background-color: #181825;
     padding: 8px;

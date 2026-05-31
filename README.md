@@ -8,10 +8,11 @@ A lightweight GTK4 task sidebar for Linux. Keeps a sorted task list in a narrow 
 
 ## Features
 
-- Tasks sorted by due date, then priority
+- Tasks sortable by due date, priority, or type
 - Colour-coded urgency: overdue (red), due today (amber), due soon (yellow)
 - Priority levels: High / Medium / Low
-- Optional notes per task
+- Task types: Personal / Project
+- Optional notes per task with a row-level notes pop-up
 - Mark done → strikethrough; auto-archived 14 days after completion
 - Persistent SQLite storage at `~/.local/share/task_sidebar/tasks.db`
 - Hourly highlight refresh (no restart needed when the date rolls over)
@@ -66,6 +67,8 @@ task-sidebar
 | Action | How |
 |---|---|
 | Add task | Click **+ Add** in the toolbar |
+| Change sorting | Choose **Date**, **Priority**, or **Type** from the toolbar sort menu |
+| View notes | Click **Notes** on any task that has notes |
 | Edit task | Click **⋮** → Edit on any row |
 | Delete task | Click **⋮** → Delete on any row |
 | Mark done | Tick the checkbox — task moves to bottom with strikethrough |

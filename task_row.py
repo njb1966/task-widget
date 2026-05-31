@@ -86,6 +86,21 @@ class TaskRow(Gtk.ListBoxRow):
         pri_lbl.set_valign(Gtk.Align.CENTER)
         meta_box.append(pri_lbl)
 
+        task_type = task.get("task_type", "personal")
+        type_lbl = Gtk.Label(label=task_type.capitalize())
+        type_lbl.add_css_class("task-type")
+        type_lbl.set_valign(Gtk.Align.CENTER)
+        meta_box.append(type_lbl)
+
+        notes = task.get("notes", "").strip()
+        if notes:
+            notes_btn = Gtk.Button(label="Notes")
+            notes_btn.add_css_class("notes-link")
+            notes_btn.set_has_frame(False)
+            notes_btn.set_valign(Gtk.Align.CENTER)
+            notes_btn.connect("clicked", self._show_notes_popover)
+            meta_box.append(notes_btn)
+
         text_col.append(meta_box)
         outer.append(text_col)
 
@@ -119,6 +134,32 @@ class TaskRow(Gtk.ListBoxRow):
         del_btn.add_css_class("destructive-action")
         del_btn.connect("clicked", lambda *_: (popover.popdown(), self.emit("delete-requested", self.task_id)))
         box.append(del_btn)
+
+        popover.set_child(box)
+        popover.popup()
+
+    def _show_notes_popover(self, btn):
+        popover = Gtk.Popover()
+        popover.set_parent(btn)
+
+        box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        box.set_margin_top(8)
+        box.set_margin_bottom(8)
+        box.set_margin_start(10)
+        box.set_margin_end(10)
+
+        title = Gtk.Label(label="Notes")
+        title.set_halign(Gtk.Align.START)
+        title.add_css_class("notes-title")
+        box.append(title)
+
+        notes_lbl = Gtk.Label(label=self.task.get("notes", "").strip())
+        notes_lbl.set_halign(Gtk.Align.START)
+        notes_lbl.set_xalign(0)
+        notes_lbl.set_wrap(True)
+        notes_lbl.set_max_width_chars(34)
+        notes_lbl.add_css_class("notes-body")
+        box.append(notes_lbl)
 
         popover.set_child(box)
         popover.popup()

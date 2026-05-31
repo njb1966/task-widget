@@ -24,12 +24,20 @@ def load_css():
     )
 
 
-def _sort_key(task):
+def _sort_key(task, preference="date"):
     done = int(task["done"])
     due = task.get("due_date") or "9999-99-99"
     priority_order = {"high": 0, "medium": 1, "low": 2}
     pri = priority_order.get(task.get("priority", "medium"), 1)
-    return (done, due, pri)
+    task_type_order = {"personal": 0, "project": 1}
+    task_type = task_type_order.get(task.get("task_type", "personal"), 0)
+    created = task.get("created_at", "")
+
+    if preference == "priority":
+        return (done, pri, due, task_type, created)
+    if preference == "type":
+        return (done, task_type, due, pri, created)
+    return (done, due, pri, task_type, created)
 
 
 class TaskSidebarWindow(Gtk.ApplicationWindow):
@@ -53,6 +61,18 @@ class TaskSidebarWindow(Gtk.ApplicationWindow):
         title_lbl.set_hexpand(True)
         title_lbl.set_halign(Gtk.Align.START)
         toolbar.append(title_lbl)
+
+        sort_lbl = Gtk.Label(label="Sort")
+        sort_lbl.add_css_class("task-meta")
+        toolbar.append(sort_lbl)
+
+        self.sort_combo = Gtk.ComboBoxText()
+        self.sort_combo.append("date", "Date")
+        self.sort_combo.append("priority", "Priority")
+        self.sort_combo.append("type", "Type")
+        self.sort_combo.set_active_id(store.get_sort_preference())
+        self.sort_combo.connect("changed", self._on_sort_changed)
+        toolbar.append(self.sort_combo)
 
         add_btn = Gtk.Button(label="+ Add")
         add_btn.add_css_class("add-button")
@@ -98,7 +118,7 @@ class TaskSidebarWindow(Gtk.ApplicationWindow):
             self.list_box.remove(child)
 
         tasks = store.get_tasks()
-        tasks.sort(key=_sort_key)
+        tasks.sort(key=lambda task: _sort_key(task, self.sort_combo.get_active_id() or "date"))
 
         active = sum(1 for t in tasks if not t["done"])
         total = len(tasks)
@@ -123,9 +143,9 @@ class TaskSidebarWindow(Gtk.ApplicationWindow):
 
     def _on_add_response(self, dialog, response):
         if response == Gtk.ResponseType.OK:
-            title, due_date, priority, notes = dialog.get_values()
+            title, due_date, priority, task_type, notes = dialog.get_values()
             if title:
-                store.add_task(title, due_date, priority, notes)
+                store.add_task(title, due_date, priority, task_type, notes)
                 self._refresh()
         dialog.destroy()
 
@@ -145,11 +165,16 @@ class TaskSidebarWindow(Gtk.ApplicationWindow):
 
     def _on_edit_response(self, dialog, response, task_id):
         if response == Gtk.ResponseType.OK:
-            title, due_date, priority, notes = dialog.get_values()
+            title, due_date, priority, task_type, notes = dialog.get_values()
             if title:
-                store.update_task(task_id, title, due_date, priority, notes)
+                store.update_task(task_id, title, due_date, priority, task_type, notes)
                 self._refresh()
         dialog.destroy()
+
+    def _on_sort_changed(self, combo):
+        preference = combo.get_active_id() or "date"
+        store.set_sort_preference(preference)
+        self._refresh()
 
     def _on_delete(self, row, task_id):
         confirm = Gtk.MessageDialog(

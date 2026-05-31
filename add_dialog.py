@@ -47,6 +47,15 @@ class AddEditDialog(Gtk.Dialog):
         self.priority_combo.set_active_id(active)
         box.append(self.priority_combo)
 
+        # Type
+        box.append(self._label("Type"))
+        self.type_combo = Gtk.ComboBoxText()
+        for task_type in ("personal", "project"):
+            self.type_combo.append(task_type, task_type.capitalize())
+        active_type = (task or {}).get("task_type", "personal")
+        self.type_combo.set_active_id(active_type)
+        box.append(self.type_combo)
+
         # Notes
         box.append(self._label("Notes (optional)"))
         scroll = Gtk.ScrolledWindow()
@@ -78,6 +87,7 @@ class AddEditDialog(Gtk.Dialog):
             except ValueError:
                 pass
         priority = self.priority_combo.get_active_id() or "medium"
+        task_type = self.type_combo.get_active_id() or "personal"
         buf = self.notes_view.get_buffer()
         notes = buf.get_text(buf.get_start_iter(), buf.get_end_iter(), False)
-        return title, due_date, priority, notes
+        return title, due_date, priority, task_type, notes
